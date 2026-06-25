@@ -3,7 +3,7 @@ import { HammerHeadHero } from "./components/HammerHeadHero";
 import { ProcessSection } from "./components/ProcessSection";
 import { RecoverySection } from "./components/RecoverySection";
 import { ServicesSection } from "./components/ServicesSection";
-import { Footer } from "./components/Footer";
+
 
 
 function App() {
@@ -14,7 +14,7 @@ function App() {
       <RecoverySection/>
       <BrandDataSection/>
       <ProcessSection/>
-      <Footer/>
+
    
       </main>
   );
