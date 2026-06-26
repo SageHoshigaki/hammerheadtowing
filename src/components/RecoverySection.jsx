@@ -9,9 +9,9 @@ import {
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 
-gsap.registerPlugin(ScrollTrigger, useGSAP);
+gsap.registerPlugin(ScrollTrigger);
 
 const capabilities = [
   "Accident-scene recovery",
@@ -44,6 +44,10 @@ export function RecoverySection() {
 
   useGSAP(
     () => {
+      const recoveryMedia = sectionRef.current?.querySelector(
+        "[data-recovery-media]",
+      );
+
       gsap.from("[data-recovery-kicker]", {
         scrollTrigger: {
           trigger: sectionRef.current,
@@ -111,17 +115,19 @@ export function RecoverySection() {
         ease: "power4.inOut",
       });
 
-      gsap.to("[data-recovery-media]", {
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: 1.2,
-        },
-        yPercent: 8,
-        scale: 1.07,
-        ease: "none",
-      });
+      if (recoveryMedia) {
+        gsap.to(recoveryMedia, {
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: 1.2,
+          },
+          yPercent: 6,
+          scale: 1.06,
+          ease: "none",
+        });
+      }
     },
     {
       scope: sectionRef,
@@ -135,7 +141,6 @@ export function RecoverySection() {
       className="relative overflow-hidden bg-black py-24 text-white md:py-32"
     >
       <div className="absolute inset-0 recovery-grid opacity-40" />
-
       <div className="absolute -left-48 top-1/3 size-[34rem] rounded-full bg-red-600/10 blur-[150px]" />
 
       <div className="relative mx-auto w-[min(100%-2rem,1500px)]">
@@ -214,7 +219,6 @@ export function RecoverySection() {
                 className="group inline-flex min-h-14 items-center justify-center gap-3 bg-red-600 px-6 text-xs font-black uppercase tracking-[0.13em] transition-colors hover:bg-red-500"
               >
                 Request recovery
-
                 <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
               </a>
 
@@ -223,7 +227,6 @@ export function RecoverySection() {
                 className="group inline-flex min-h-14 items-center justify-center gap-3 border border-white/15 px-6 text-xs font-black uppercase tracking-[0.13em] transition-colors hover:border-white/35 hover:bg-white/5"
               >
                 View coverage
-
                 <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
               </a>
             </div>
@@ -234,27 +237,34 @@ export function RecoverySection() {
               ref={mediaRef}
               className="relative min-h-[520px] overflow-hidden border border-white/10 bg-[#090909] md:min-h-[680px]"
             >
-              {/* Replace this image with a Hammer Head recovery photo or video */}
-              <img
+              <video
                 data-recovery-media
-                src="/media/recovery-feature.webp"
-                alt="Hammer Head towing and vehicle recovery operation"
-                className="absolute inset-0 h-[115%] w-full object-cover"
-              />
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="auto"
+                poster="/images/recovery-poster.jpg"
+                aria-label="Hammer Head towing and vehicle recovery operation"
+                className="absolute inset-0 h-full w-full object-cover"
+              >
+                <source src="/videos/truck1.mp4" type="video/mp4" />
+              </video>
 
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/10 to-black/30" />
-
               <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.35),transparent_45%)]" />
 
               <div className="absolute left-5 top-5 flex items-center gap-3 border border-white/15 bg-black/55 px-4 py-3 backdrop-blur-md">
                 <span className="size-2 animate-pulse rounded-full bg-red-600" />
-
                 <span className="text-[0.62rem] font-black uppercase tracking-[0.18em] text-white/65">
                   Recovery division
                 </span>
               </div>
 
-              <div className="absolute inset-x-0 bottom-0 grid gap-px bg-white/10 sm:grid-cols-3">
+              <div
+                data-recovery-stats
+                className="absolute inset-x-0 bottom-0 grid gap-px bg-white/10 sm:grid-cols-3"
+              >
                 {metrics.map(({ icon: Icon, value, label }) => (
                   <motion.div
                     key={label}
