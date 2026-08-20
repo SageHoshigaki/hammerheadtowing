@@ -41,8 +41,7 @@ function AppShell() {
       {!isAdmin && (
         <UniversalNav
           logoSrc="/images/hammerhead-logo.png"
-          phoneNumber="+15160000000"
-          displayPhone="(516) 000-0000"
+          phoneNumber="(631) 300-5559"
         />
       )}
       <Routes>

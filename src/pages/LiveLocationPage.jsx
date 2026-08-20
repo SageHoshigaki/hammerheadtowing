@@ -130,7 +130,7 @@ function Stat({ label, value, icon: Icon }) {
 
 export default function LiveLocationPage({
   logoSrc = "/images/hammerhead-logo.png",
-  phoneNumber = "(631) 555-0199",
+  phoneNumber = "(631) 300-5559",
   onLocationChange,
   onContinue,
 }) {
@@ -140,6 +140,11 @@ export default function LiveLocationPage({
   const [status, setStatus] = useState(STATUS.IDLE);
   const [location, setLocation] = useState(null);
   const [error, setError] = useState("");
+  const [vehicle, setVehicle] = useState({
+    make: "",
+    model: "",
+    color: "",
+  });
 
   useEffect(() => {
     const context = gsap.context(() => {
@@ -291,6 +296,18 @@ export default function LiveLocationPage({
     }
 
     setStatus(STATUS.STOPPED);
+  }
+
+  function updateVehicle(event) {
+    const { name, value } = event.target;
+    setVehicle((current) => ({ ...current, [name]: value }));
+  }
+
+  function submitServiceRequest(event) {
+    event.preventDefault();
+    if (!location) return;
+
+    onContinue?.({ location, vehicle });
   }
 
   return (
@@ -478,7 +495,35 @@ export default function LiveLocationPage({
                 )}
               </AnimatePresence>
 
-              <div className="mt-auto pt-6">
+              <form className="mt-auto pt-6" onSubmit={submitServiceRequest}>
+                <fieldset className="mb-5 border border-white/10 bg-white/[0.02] p-4">
+                  <legend className="px-2 text-[9px] font-bold uppercase tracking-[0.22em] text-white/45">
+                    Vehicle details
+                  </legend>
+
+                  <div className="grid gap-3 sm:grid-cols-3 xl:grid-cols-1 2xl:grid-cols-3">
+                    {[
+                      ["make", "Make", "Ford"],
+                      ["model", "Model", "F-150"],
+                      ["color", "Color", "Black"],
+                    ].map(([name, label, placeholder]) => (
+                      <label key={name} className="block">
+                        <span className="mb-2 block text-[8px] font-bold uppercase tracking-[0.18em] text-white/30">
+                          {label}
+                        </span>
+                        <input
+                          required
+                          name={name}
+                          value={vehicle[name]}
+                          onChange={updateVehicle}
+                          placeholder={placeholder}
+                          className="w-full border border-white/10 bg-black px-3 py-3 text-sm text-white outline-none transition placeholder:text-white/20 focus:border-[#D3131A]"
+                        />
+                      </label>
+                    ))}
+                  </div>
+                </fieldset>
+
                 {status !== STATUS.LIVE ? (
                   <motion.button
                     type="button"
@@ -513,8 +558,7 @@ export default function LiveLocationPage({
                 ) : (
                   <div className="space-y-3">
                     <motion.button
-                      type="button"
-                      onClick={() => onContinue?.(location)}
+                      type="submit"
                       whileHover={{ x: 3 }}
                       whileTap={{ scale: 0.99 }}
                       className="flex w-full items-center justify-between bg-[#D3131A] px-5 py-4 text-[11px] font-bold uppercase tracking-[0.16em] text-white transition duration-300 hover:bg-white hover:text-black"
@@ -549,7 +593,7 @@ export default function LiveLocationPage({
                 <p className="mt-4 text-center text-[9px] font-medium uppercase tracking-[0.16em] text-white/22">
                   Secure connection required · HTTPS only
                 </p>
-              </div>
+              </form>
             </div>
           </div>
 

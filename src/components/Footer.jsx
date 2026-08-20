@@ -148,7 +148,7 @@ export function Footer() {
 
           <a
             data-footer-reveal
-            href="tel:+15160000000"
+            href="tel:+16313005559"
             className="group inline-flex min-h-16 w-fit items-center justify-center gap-4 bg-red-600 px-7 text-xs font-black uppercase tracking-[0.14em] transition-all duration-300 hover:-translate-y-1 hover:bg-white hover:text-black"
           >
             <Phone className="size-5" />
@@ -223,10 +223,10 @@ export function Footer() {
             className="flex flex-col gap-2 md:items-end"
           >
             <a
-              href="tel:+15160000000"
+              href="tel:+16313005559"
               className="text-lg font-black text-white transition-colors hover:text-red-500"
             >
-              +1 (516) 000-0000
+              (631) 300-5559
             </a>
 
             <span className="text-[0.62rem] font-black uppercase tracking-[0.16em] text-red-500">

@@ -41,7 +41,7 @@ const situations = [
 ];
 
 export default function RequestRecoveryPage({
-  phoneNumber = "(631) 555-0199",
+  phoneNumber = "(631) 300-5559",
   logoSrc = "/images/hammerhead-logo.png",
 }) {
   const [step, setStep] = useState(0);

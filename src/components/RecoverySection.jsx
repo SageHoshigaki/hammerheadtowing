@@ -215,7 +215,7 @@ export function RecoverySection() {
 
             <div className="mt-9 flex flex-col gap-4 sm:flex-row">
               <a
-                href="tel:+15160000000"
+                href="tel:+16313005559"
                 className="group inline-flex min-h-14 items-center justify-center gap-3 bg-red-600 px-6 text-xs font-black uppercase tracking-[0.13em] transition-colors hover:bg-red-500"
               >
                 Request recovery

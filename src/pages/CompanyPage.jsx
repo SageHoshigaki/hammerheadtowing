@@ -47,7 +47,7 @@ const audiences = [
 
 export default function CompanyPage({
   logoSrc = "/images/logo2.png",
-  phoneNumber = "(631) 555-0199",
+  phoneNumber = "(631) 300-5559",
 }) {
   const rootRef = useRef(null);
 
